@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
                     CounterScreen(
                         count = counterViewModel.count.collectAsState().value,
-                        startCounter = { counterViewModel.startCounter() },
+                        startCounter = { counterViewModel.startCounterNewJob() },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
