@@ -7,6 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CounterViewModel: ViewModel() {
@@ -34,12 +35,19 @@ class CounterViewModel: ViewModel() {
         counterJob = viewModelScope.launch {
             _count.value = 0
             while (true) {
-                _count.getAndUpdate {
+                delay(1000)
+
+                _count.update {
                     it.plus(1)
                 }
-                delay(1000)
 
             }
         }
+    }
+
+    fun stopCounter() {
+        counterJob?.cancel()
+        _count.value = 0
+
     }
 }
